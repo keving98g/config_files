@@ -1,61 +1,79 @@
-" All system-wide defaults are set in $VIMRUNTIME/debian.vim and sourced by
-" the call to :runtime you can find below.  If you wish to change any of those
-" settings, you should do it in this file (/etc/vim/vimrc), since debian.vim
-" will be overwritten everytime an upgrade of the vim packages is performed.
-" It is recommended to make changes after sourcing debian.vim since it alters
-" the value of the 'compatible' option.
+" Kevin Guenthner .vimrc
+" 3/11/2019
+"""""""""""""""""""""""""""
+colorscheme elflord	" I want to be like ezraboley
 
-" This line should not be removed as it ensures that various options are
-" properly set to work with the Vim-related packages available in Debian.
-runtime! debian.vim
+set colorcolumn=80	" 80 character limit reminder
+set nowrap		" long text will go off screen
+syntax enable
 
-" Vim will load $VIMRUNTIME/defaults.vim if the user does not have a vimrc.
-" This happens after /etc/vim/vimrc(.local) are loaded, so it will override
-" any settings in these files.
-" If you don't want that to happen, uncomment the below line to prevent
-" defaults.vim from being loaded.
-" let g:skip_defaults_vim = 1
+" Search Settings
+set ignorecase		" ignore case for search patterns
+set smartcase		" override ignorecase if search
+			" contains uppercase characters
+set incsearch		" show where search shows up
+set hlsearch		" highlight search results
 
-" Uncomment the next line to make Vim more Vi-compatible
-" NOTE: debian.vim sets 'nocompatible'.  Setting 'compatible' changes numerous
-" options, so any other options should be set AFTER setting 'compatible'.
-"set compatible
+set cindent		" enalbe automatic C program indenting
+set noswapfile		" disables the creation of swap files
+set nobackup		" don't create copies while overwriting
 
-" Vim5 and later versions support syntax highlighting. Uncommenting the next
-" line enables syntax highlighting by default.
-if has("syntax")
-  syntax on
+" allow backspacing over everything in insert mode
+set backspace=indent,eol,start
+set background=dark
+
+" Have vim jump to the last position when reopening a file
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
 
-" If using a dark background within the editing area and syntax highlighting
-" turn on this option as well
-"set background=dark
-
-" Uncomment the following to have Vim jump to the last position when
-" reopening a file
-"if has("autocmd")
-"  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-"endif
-
-" Uncomment the following to have Vim load indentation rules and plugins
-" according to the detected filetype.
-"if has("autocmd")
-"  filetype plugin indent on
-"endif
-
-" The following are commented out as they cause vim to behave a lot
-" differently from regular Vi. They are highly recommended though.
-"set showcmd		" Show (partial) command in status line.
-"set showmatch		" Show matching brackets.
-"set ignorecase		" Do case insensitive matching
-"set smartcase		" Do smart case matching
-"set incsearch		" Incremental search
-"set autowrite		" Automatically save before commands like :next and :make
-"set hidden		" Hide buffers when they are abandoned
-"set mouse=a		" Enable mouse usage (all modes)
-
-" Source a global configuration file if available
-if filereadable("/etc/vim/vimrc.local")
-  source /etc/vim/vimrc.local
+" Have vim load indentation rules and plugins according to the detected filetype.
+if has("autocmd")
+  filetype plugin indent on
 endif
 
+set showcmd		" Show (partial) command in status line
+set mouse=a		" Enable mouse usage (all modes)
+
+" Visualize tabs and newlines
+set listchars=tab:▸\ ,eol:¬
+map <leader>l :set list!<CR>
+
+" Show trailing whitespace and spaces for tabs
+map <leader>L /\s\+$<CR>
+
+" Navigating Tabs
+" New WinMove function may replace these
+map <leader>p :tabp<CR>
+map <leader>n :tabn<CR>
+map <leader>t :tab split +Explore<CR>
+map <leader>T :Explore<CR>
+
+" Tab Character Spacing
+set tabstop=4		" number of spaces that a tab counts for
+set shiftwidth=4	" number of spaces for auto indent
+set expandtab		" insert tabs as spaces
+
+" Quick Insertion
+nnoremap <Space> i_<Esc>r
+
+" HTML autocomplete
+autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+
+" Kernel-style C
+autocmd FileType c call SetKernelRules()
+function SetKernelRules()
+    set tabstop=8
+    set softtabstop=8
+    set shiftwidth=8
+    set noexpandtab
+endfunction
+
+" Status Line
+set laststatus=2                               " always show status line
+set statusline=%<%f\                           " Filename
+set statusline+=%w%h%m%r                       " Options
+set statusline+=\ [%{&ff}/%Y]                  " filetype
+set statusline+=\ [%{split(getcwd(),'/')[-1]}] " current dir
+set statusline+=%=%-14.(%l,%c%V%)\ %p%%        " Right aligned file nav info
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
