@@ -1,6 +1,7 @@
 " Kevin Guenthner .vimrc
 " 3/11/2019
 """""""""""""""""""""""""""
+
 colorscheme elflord	" I want to be like ezraboley
 
 set colorcolumn=80	" 80 character limit reminder
@@ -77,3 +78,36 @@ set statusline+=\ [%{&ff}/%Y]                  " filetype
 set statusline+=\ [%{split(getcwd(),'/')[-1]}] " current dir
 set statusline+=%=%-14.(%l,%c%V%)\ %p%%        " Right aligned file nav info
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Windows / GVim
+" set expandtab
+" filetype plugin indent on
+" set backspace=indent,eol,start
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                Functions                                    "
+"                                                                             "
+" WinMove from https://github.com/nicknisi/vim-workshop/                      "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+map <C-h> :call WinMove('h')<cr>
+map <C-j> :call WinMove('j')<cr>
+map <C-k> :call WinMove('k')<cr>
+map <C-l> :call WinMove('l')<cr>
+
+" Window movement shortcuts
+" move to the window in the direction shown, or create a new window
+function! WinMove(key)
+    let t:curwin = winnr()
+    exec "wincmd ".a:key
+    if (t:curwin == winnr())
+        if (match(a:key,'[jk]'))
+            wincmd v
+        else
+            wincmd s
+        endif
+        exec "wincmd ".a:key
+    endif
+endfunction
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+set fdm=syntax		" match fold-over method to syntax
