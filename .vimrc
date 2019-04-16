@@ -38,8 +38,9 @@ set showcmd		" Show (partial) command in status line
 set mouse=a		" Enable mouse usage (all modes)
 
 " Visualize tabs and newlines
-set listchars=tab:▸\ ,eol:¬
-map <leader>l :set list!<CR>
+" set listchars=tab:▸\ ,eol:¬
+" map <leader>l :set list!<CR>
+" ^^ TODO fix character set 
 
 " Show trailing whitespace and spaces for tabs
 map <leader>L /\s\+$<CR>
