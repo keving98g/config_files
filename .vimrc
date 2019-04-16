@@ -7,6 +7,7 @@ colorscheme elflord	" I want to be like ezraboley
 set colorcolumn=80	" 80 character limit reminder
 set nowrap		" long text will go off screen
 syntax enable
+set number
 
 " Search Settings
 set ignorecase		" ignore case for search patterns
@@ -109,5 +110,3 @@ function! WinMove(key)
     endif
 endfunction
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-set fdm=syntax		" match fold-over method to syntax
