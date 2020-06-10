@@ -1,6 +1,6 @@
 #!/bin/bash
 BACKUP_FOLDER="${HOME}/oldConfigs"
-SUFFIX=".erc"
+SUFFIX=".rc"
 
 echo "Backing up your current conf files in ${BACKUP_FOLDER} in case you change your mind"
 
@@ -32,7 +32,7 @@ fi
 
 declare -a ALL_FILES=()
 
-ALL_FILES=$(ls *.erc)
+ALL_FILES=$(ls *.rc)
 
 for name in ${ALL_FILES[@]}; do
     safeMove "${name}"
