@@ -1,8 +1,8 @@
 " Kevin Guenthner .vimrc
-" 3/11/2019
+" 6/23/2020
 """""""""""""""""""""""""""
 
-colorscheme elflord	" I want to be like ezraboley
+colorscheme ron	" setting my own path from ezraboley
 
 set colorcolumn=80	" 80 character limit reminder
 set nowrap		" long text will go off screen
